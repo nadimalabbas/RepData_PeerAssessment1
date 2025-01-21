@@ -22,10 +22,13 @@ if(!exists('activity') || !is.data.frame(get('activity'))) {
 
 ``` r
 totalPerDay <- tapply(activity$steps, activity$date, sum, na.rm = TRUE)
-barplot(totalPerDay)
+barplot(totalPerDay,
+        names.arg = format(as.Date(names(totalPerDay)), "%m-%d"),
+        xlab = "Date", ylab = "Total Steps Per Day"
+        )
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ``` r
 stepsMean <- mean(totalPerDay)
@@ -43,7 +46,7 @@ plot(names(stepsMeanInInterval), stepsMeanInInterval, type = "l",
      xlab = "Interval", ylab = "Mean Number of Steps")
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 ``` r
 maximum <- max(stepsMeanInInterval)
@@ -65,10 +68,13 @@ activityComplete[missingRows, "steps"] <- missingMeans
 totalPerDayComplete <- with(activityComplete,
                             tapply(steps, date, sum, na.rm = TRUE)
                             )
-barplot(totalPerDayComplete)
+barplot(totalPerDayComplete,
+        names.arg = format(as.Date(names(totalPerDayComplete)), "%m-%d"),
+        xlab = "Date", ylab = "Total Steps Per Day"
+        )
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 ``` r
 stepsMeanComplete <- mean(totalPerDayComplete)
@@ -105,4 +111,4 @@ ggplot(panelPlotData, aes(interval, steps)) +
   labs(x = "Interval", y = "Mean Number of Steps")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
